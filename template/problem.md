@@ -1,18 +1,11 @@
-#  - 
+# 
 
-| Category   | Difficulty      | Likes | Dislikes |
-| ---------- | --------------- | ----- | -------- |
-|  |  (%) |   |       |
+| Difficulty      | Likes | Dislikes |
+| --------------- | ----- | -------- |
+|  |   |       |
 
 <details>
 <summary>Tags</summary>
-
-[``]() | [``]()
-
-</details>
-
-<details>
-<summary>Companies</summary>
 
 `` | ``
 
