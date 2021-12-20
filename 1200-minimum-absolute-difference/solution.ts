@@ -15,14 +15,12 @@ function minimumAbsDifference(arr: number[]): number[][] {
 
   for (let i = 1; i < sorted.length; i++) {
     // get the absolute difference of the 2 nums
-    const diff = Math.abs(sorted[i] - sorted[i - 1]);
+    const diff = sorted[i] - sorted[i - 1];
 
     if (diff < min_diff) {
-      // reset minimum diff, pairs list
+      // reset minimum diff, pairs list and add pair to list
       min_diff = diff;
-      pairs = [];
-      // add pair to list
-      pairs.push([sorted[i - 1], sorted[i]]);
+      pairs = [[sorted[i - 1], sorted[i]]];
     } else if (diff === min_diff) {
       // add pair to list
       pairs.push([sorted[i - 1], sorted[i]]);

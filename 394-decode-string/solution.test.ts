@@ -1,10 +1,7 @@
 import { assertEquals } from 'https://deno.land/std@0.118.0/testing/asserts.ts';
 import { _decodeString as decodeString } from './solution.ts';
 
-const _sleep = async () => {
-  await new Promise(resolve => setTimeout(resolve, 2000));
-};
-await _sleep();
+await new Promise(resolve => setTimeout(resolve, 2000));
 
 Deno.test('3[a]2[bc]', () =>
   assertEquals(decodeString('3[a]2[bc]'), 'aaabcbc'),

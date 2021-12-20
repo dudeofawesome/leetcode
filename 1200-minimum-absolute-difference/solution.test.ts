@@ -3,10 +3,7 @@ import { _export as solution } from './solution.ts';
 
 // sleep long enough for the Deno debugger to catch up
 // https://github.com/denoland/vscode_deno/issues/557#issuecomment-986292261
-const _sleep = async () => {
-  await new Promise(resolve => setTimeout(resolve, 2000));
-};
-await _sleep();
+await new Promise(resolve => setTimeout(resolve, 2000));
 
 Deno.test('[4,2,1,3]', () =>
   assertEquals(solution([4, 2, 1, 3]), [
