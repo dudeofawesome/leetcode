@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "denoland.vscode-deno",
+    "wangtao0101.debug-leetcode",
+    "editorconfig.editorconfig",
+    "leetcode.vscode-leetcode",
+    "esbenp.prettier-vscode"
+  ]
+}
