@@ -8,22 +8,22 @@ export const _export = minimumAbsDifference;
 
 // @lc code=start
 function minimumAbsDifference(arr: number[]): number[][] {
-  const sorted = arr.sort((a, b) => a - b);
+  arr.sort((a, b) => a - b);
 
   let min_diff = Infinity;
   let pairs: [number, number][] = [];
 
-  for (let i = 1; i < sorted.length; i++) {
+  for (let i = 1; i < arr.length; i++) {
     // get the absolute difference of the 2 nums
-    const diff = sorted[i] - sorted[i - 1];
+    const diff = arr[i] - arr[i - 1];
 
     if (diff < min_diff) {
       // reset minimum diff, pairs list and add pair to list
       min_diff = diff;
-      pairs = [[sorted[i - 1], sorted[i]]];
+      pairs = [[arr[i - 1], arr[i]]];
     } else if (diff === min_diff) {
       // add pair to list
-      pairs.push([sorted[i - 1], sorted[i]]);
+      pairs.push([arr[i - 1], arr[i]]);
     }
   }
 
