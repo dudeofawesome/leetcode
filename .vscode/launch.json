@@ -18,7 +18,8 @@
         "--inspect"
         // "--inspect-brk"
       ],
-      "attachSimplePort": 9229
+      "attachSimplePort": 9229,
+      "console": "integratedTerminal"
     }
   ]
 }
