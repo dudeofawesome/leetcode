@@ -4,7 +4,7 @@
  * [143] Reorder List
  */
 
-import { ListNode } from '../helpers/list-node.ts';
+import { ListNode } from '../../helpers/list-node.ts';
 
 export const _export = reorderList;
 

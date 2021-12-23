@@ -1,5 +1,5 @@
 import { assertEquals } from 'https://deno.land/std@0.118.0/testing/asserts.ts';
-import { ArrayToList, ListToArray } from '../helpers/list-node.ts';
+import { ArrayToList, ListToArray } from '../../helpers/list-node.ts';
 import { _export as solution } from './solution.ts';
 
 // sleep long enough for the Deno debugger to catch up
