@@ -7,19 +7,25 @@ import { _export as solution } from './solution.ts';
 await new Promise(resolve => setTimeout(resolve, 2000));
 
 Deno.test('null', () => {
-  assertEquals(solution(), null);
+  assertEquals(solution() == null, true);
+});
+
+Deno.test('[1]', () => {
+  const head = ArrayToList([1]);
+  solution(head);
+  assertEquals(ListToArray(head), [1]);
 });
 
 Deno.test('[1,2]', () => {
   const head = ArrayToList([1, 2]);
   solution(head);
-  assertEquals(ListToArray(head), [1, 4, 2, 3]);
+  assertEquals(ListToArray(head), [1, 2]);
 });
 
 Deno.test('[1..3]', () => {
   const head = ArrayToList([1, 2, 3]);
   solution(head);
-  assertEquals(ListToArray(head), [1, 4, 2, 3]);
+  assertEquals(ListToArray(head), [1, 3, 2]);
 });
 
 Deno.test('[1..4]', () => {
