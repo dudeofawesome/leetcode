@@ -1,5 +1,5 @@
 /*
- * @lc app=leetcode id=$PROBLEM_ID lang=typescript
+ * @lc app=leetcode id=$PROBLEM_ID lang=javascript
  *
  * [$PROBLEM_ID] $PROBLEM_NAME
  */
