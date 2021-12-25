@@ -20,6 +20,20 @@
       ],
       "attachSimplePort": 9229,
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Rust test",
+      "type": "lldb",
+      "request": "launch",
+      "cargo": {
+        "args": ["test", "--no-run", "--lib", "--package=${fileDirname}"],
+        "filter": {
+          "name": "${fileDirname}",
+          "kind": "lib"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
     }
   ]
 }

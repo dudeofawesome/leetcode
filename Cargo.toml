@@ -1,0 +1,11 @@
+[package]
+name = "leetcode"
+version = "0.0.1"
+edition = "2018"
+
+[[bin]]
+name = "1-two-sum"
+path = "1-two-sum/solution.rs"
+test = true
+
+[dependencies]
