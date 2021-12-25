@@ -7,6 +7,16 @@ import {
   request,
 } from 'https://deno.land/x/graphql_request@v3.7.0/mod.ts';
 import { renderFile } from 'https://deno.land/x/mustache@v0.3.0/mod.ts';
+import html2md from 'https://cdn.skypack.dev/html-to-md@^0.5.3?dts';
+import {
+  format,
+  // resolveConfigFile,
+  Options as PrettierOptions,
+} from 'https://cdn.skypack.dev/prettier@^2.5.1?dts';
+// console.log(resolveConfigFile);
+import parserMD from 'https://cdn.skypack.dev/prettier@^2.5.1/parser-markdown?dts';
+import parserTS from 'https://cdn.skypack.dev/prettier@^2.5.1/parser-typescript?dts';
+import parserJS from 'https://cdn.skypack.dev/prettier@^2.5.1/parser-babel?dts';
 
 function help_menu() {
   console.info('');
@@ -87,6 +97,22 @@ async function main() {
     )
   ).problemsetQuestionList.questions[0];
 
+  // const prettier_config = (await prettier.resolveConfigFile()) ?? {};
+  const prettier_config: PrettierOptions = {
+    arrowParens: 'avoid',
+    bracketSpacing: true,
+    trailingComma: 'all',
+    semi: true,
+    singleQuote: true,
+    tabWidth: 2,
+    useTabs: false,
+  };
+  const description = format(html2md(problem.content), {
+    ...prettier_config,
+    parser: 'markdown',
+    plugins: [parserMD],
+  });
+
   const dir = join('problems', `${problem_id}-${problem.titleSlug}`);
 
   await Deno.mkdir(dir, { recursive: true });
@@ -112,7 +138,11 @@ async function main() {
           s.langSlug === (args.language === 'ts' ? 'typescript' : 'javascript'),
       );
       method_name = snippet.code.match(/function (\w+) ?\(/)[1];
-      method = snippet.code;
+      method = format(snippet.code, {
+        ...prettier_config,
+        parser: args.language === 'ts' ? 'typescript' : 'babel',
+        plugins: [parserTS, parserJS],
+      });
       solution_src_name = `solution.${args.language}`;
       tests_src_name = `solution.test.${args.language}`;
       break;
