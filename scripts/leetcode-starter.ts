@@ -9,6 +9,10 @@ import {
 import { renderFile } from 'https://deno.land/x/mustache@v0.3.0/mod.ts';
 import html2md from 'https://cdn.skypack.dev/html-to-md@^0.5.3?dts';
 import {
+  subscript,
+  superscript,
+} from 'https://cdn.skypack.dev/script-case@^1.0.0?dts';
+import {
   format,
   // resolveConfigFile,
   Options as PrettierOptions,
@@ -111,7 +115,9 @@ async function main() {
     ...prettier_config,
     parser: 'markdown',
     plugins: [parserMD],
-  });
+  })
+    .replaceAll(/<sub>(.*?)<\/sub>/gi, (s, m1) => subscript(m1))
+    .replaceAll(/<sup>(.*?)<\/sup>/gi, (s, m1) => superscript(m1));
 
   const dir = join('problems', `${problem_id}-${problem.titleSlug}`);
 
