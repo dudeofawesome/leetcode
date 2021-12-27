@@ -1,4 +1,4 @@
-import { assertEquals } from 'https://deno.land/std@0.118.0/testing/asserts.ts';
+import { assertArrayIncludes } from 'https://deno.land/std@0.118.0/testing/asserts.ts';
 import { _export as solution } from './solution.ts';
 
 // sleep long enough for the Deno debugger to catch up
@@ -6,7 +6,7 @@ import { _export as solution } from './solution.ts';
 await new Promise(resolve => setTimeout(resolve, 2000));
 
 Deno.test('[[1,3],[-2,2]], 1', () =>
-  assertEquals(
+  assertArrayIncludes(
     solution(
       [
         [1, 3],
@@ -19,7 +19,7 @@ Deno.test('[[1,3],[-2,2]], 1', () =>
 );
 
 Deno.test('[[3,3],[5,-1],[-2,4]], 2', () =>
-  assertEquals(
+  assertArrayIncludes(
     solution(
       [
         [3, 3],
