@@ -1,10 +1,10 @@
 export class ListNode<T = number> {
   val: T;
-  next?: ListNode<T> | null;
-  constructor(val?: T, next?: ListNode<T>) {
+  next: ListNode<T> | null;
+  constructor(val?: T | null, next?: ListNode<T>) {
     // TODO: make a default type case for T
-    this.val = val === undefined ? (0 as any as T) : val;
-    this.next = next;
+    this.val = val == undefined ? (0 as any as T) : val;
+    this.next = next == undefined ? null : next;
   }
 
   toString(): string {
@@ -12,15 +12,19 @@ export class ListNode<T = number> {
   }
 }
 
-export function ArrayToList<T>(array: T[]): ListNode<T> {
-  const head = new ListNode(array[0]);
+export function ArrayToList<T>(array: T[] | undefined | null): ListNode<T> {
+  const head = new ListNode(array?.at(0));
   array
-    .slice(1)
+    ?.slice(1)
     .reduce<ListNode<T>>((curr, val) => (curr.next = new ListNode(val)), head);
   return head;
 }
 
-export function ListToArray<T>(list: ListNode<T>): T[] {
+export function ListToArray<T>(
+  list: ListNode<T> | undefined | null,
+): T[] | null {
+  if (list == null) return null;
+
   const array: T[] = [];
   while (list != null) {
     array.push(list.val);

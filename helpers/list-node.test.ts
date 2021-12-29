@@ -1,4 +1,7 @@
-import { assertEquals } from 'https://deno.land/std@0.118.0/testing/asserts.ts';
+import {
+  assertEquals,
+  assertStrictEquals,
+} from 'https://deno.land/std@0.118.0/testing/asserts.ts';
 import { ArrayToList, ListToArray, ListNode } from '../helpers/list-node.ts';
 
 // sleep long enough for the Deno debugger to catch up
@@ -16,6 +19,10 @@ Deno.test('ArrayToList', () => {
     actual = actual?.next;
     expected = expected?.next;
   }
+
+  assertEquals(ArrayToList(null), new ListNode());
+
+  assertEquals(ArrayToList(undefined), new ListNode());
 });
 
 Deno.test('ListToArray', () => {
@@ -25,4 +32,8 @@ Deno.test('ListToArray', () => {
   let expected = [1, 2, 3, 4];
 
   assertEquals(actual, expected);
+
+  assertStrictEquals(ListToArray(null), null);
+
+  assertStrictEquals(ListToArray(undefined), null);
 });
