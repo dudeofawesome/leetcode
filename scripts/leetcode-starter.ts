@@ -29,7 +29,7 @@ function help_menu() {
   console.info('');
   console.info('OPTIONS:');
   console.info('   -l, --language <lang=ts>');
-  console.info('           Language to use [possible values: ts, js]');
+  console.info('           Language to use [possible values: ts, js, sh]');
   console.info('   -h, --help');
   console.info('           Show this message');
 }
@@ -138,9 +138,9 @@ async function main() {
 
   switch (args.language) {
     case 'ts':
-    case 'js':
+    case 'js': {
       const snippet = problem.codeSnippets.find(
-        (s: { langSlug: string; code: string }) =>
+        (s: { langSlug: string }) =>
           s.langSlug === (args.language === 'ts' ? 'typescript' : 'javascript'),
       );
       method_name = snippet.code.match(/function (\w+) ?\(/)[1];
@@ -152,9 +152,22 @@ async function main() {
       solution_src_name = `solution.${args.language}`;
       tests_src_name = `solution.test.${args.language}`;
       break;
-    default:
+    }
+    case 'sh':
+    case 'bash': {
+      const snippet = problem.codeSnippets.find(
+        (s: { langSlug: string }) => s.langSlug === 'bash',
+      );
+      method_name = 'NO_METHOD_NAME';
+      method = snippet.code;
+      solution_src_name = 'solution.sh';
+      tests_src_name = 'solution.test.sh';
+      break;
+    }
+    default: {
       console.error(`Unknown language "${args.language}"`);
       Deno.exit(1);
+    }
   }
 
   const model = { problem, method_name, method };
@@ -166,6 +179,23 @@ async function main() {
     `${dir}/${tests_src_name}`,
     await renderFile(join('template', `${tests_src_name}.hbs`), model),
   );
+
+  switch (args.language) {
+    case 'sh':
+    case 'bash': {
+      try {
+        await Promise.all([
+          Deno.chmod(`${dir}/${solution_src_name}`, 0o755),
+          Deno.chmod(`${dir}/${tests_src_name}`, 0o755),
+        ]);
+      } catch (e) {
+        console.error(e);
+      }
+      solution_src_name = 'solution.sh';
+      tests_src_name = 'solution.test.sh';
+      break;
+    }
+  }
 }
 
 main();
