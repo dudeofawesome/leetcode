@@ -1,26 +1,20 @@
 #!/usr/bin/env deno run --unstable --allow-read --allow-write --allow-net
 
-import { join } from 'https://deno.land/std@0.119.0/path/mod.ts';
-import { parse } from 'https://deno.land/std@0.119.0/flags/mod.ts';
 import {
+  join,
+  parse,
   gql,
   request,
-} from 'https://deno.land/x/graphql_request@v3.7.0/mod.ts';
-import { renderFile } from 'https://deno.land/x/mustache@v0.3.0/mod.ts';
-import html2md from 'https://cdn.skypack.dev/html-to-md@^0.5.3?dts';
-import {
+  renderFile,
+  html2md,
   subscript,
   superscript,
-} from 'https://cdn.skypack.dev/script-case@^1.0.0?dts';
-import {
   format,
-  // resolveConfigFile,
-  Options as PrettierOptions,
-} from 'https://cdn.skypack.dev/prettier@^2.5.1?dts';
-// console.log(resolveConfigFile);
-import parserMD from 'https://cdn.skypack.dev/prettier@^2.5.1/parser-markdown?dts';
-import parserTS from 'https://cdn.skypack.dev/prettier@^2.5.1/parser-typescript?dts';
-import parserJS from 'https://cdn.skypack.dev/prettier@^2.5.1/parser-babel?dts';
+  PrettierOptions,
+  parserMD,
+  parserTS,
+  parserJS,
+} from './deps.ts';
 
 function help_menu() {
   console.info('');
@@ -143,7 +137,9 @@ async function main() {
         (s: { langSlug: string }) =>
           s.langSlug === (args.language === 'ts' ? 'typescript' : 'javascript'),
       );
-      method_name = snippet.code.match(/function (\w+) ?\(/)[1];
+      method_name = snippet.code.match(
+        /^(?:function|class) (\w+) ?(?:\(|{)/m,
+      )[1];
       method = format(snippet.code, {
         ...prettier_config,
         parser: args.language === 'ts' ? 'typescript' : 'babel',
