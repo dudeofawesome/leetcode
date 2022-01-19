@@ -33,3 +33,11 @@ export function ListToArray<T>(
 
   return array;
 }
+
+export function FindTail<T>(node: ListNode<T>) {
+  while (node.next != null) {
+    node = node.next;
+  }
+
+  return node;
+}
